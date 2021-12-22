@@ -75,7 +75,7 @@ body{
 .drag-area .icon{
   padding-left: 37.5%;
   padding-top: 5%;
-  font-size: 40px;
+  font-size: 45px;
   color: #fff;
   justify-self: center;
 }
@@ -83,7 +83,6 @@ body{
 .drag-area header{
 padding-bottom: 4%;
 }
-
 /* ???? */
 .drag-area img{
   height: 100%;

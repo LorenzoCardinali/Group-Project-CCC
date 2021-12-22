@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<!-- source -> https://www.codingnepalweb.com/drag-drop-file-upload-feature-javascript/ -->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag & Drop or Browse: File Upload | CodingNepal</title>
+    <title>BPMN engine reader</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
 </head>
 
 <body>
@@ -22,17 +23,18 @@
                 <input type="file" hidden>
             </div>
         </drop>
-        <bottons>
-            <h1 id="myFile">No file</h1>
-            <br>
-            <div class="bottons-area">
-                <button class="start">Start</button>
-                <button class="stop">Stop</button>
-            </div>
-        </bottons>
         <console>
             <p id="myLog"></p>
         </console>
+        <bottons>
+            <h1 id="myFile">No file</h1>
+            <div>
+
+            </div>
+            <div class="bottons-area">
+                <button class="start">Start</button>
+            </div>
+        </bottons>
     </section>
     <link rel="stylesheet" href="style.css">
     <script src="bundle.js"></script>
