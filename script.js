@@ -1,3 +1,11 @@
+/*
+################
+### Web page ###
+################
+*/
+
+const { CLIENT_RENEG_LIMIT } = require('tls');
+
 window.console = {
     log: function (str) {
         var node = document.createElement("div");
@@ -5,8 +13,6 @@ window.console = {
         document.getElementById("myLog").appendChild(node);
     }
 }
-
-var stop = 0;
 
 //selecting all required elements
 const dropArea = document.querySelector(".drag-area"),
@@ -16,28 +22,23 @@ const dropArea = document.querySelector(".drag-area"),
 let file; //this is a global variable and we'll use it inside multiple functions
 
 const buttonsArea = document.querySelector(".bottons-area"),
-    startbutton = buttonsArea.querySelector(".start"),
-    stopbutton = buttonsArea.querySelector(".stop");
-
-stopbutton.onclick = () => {
-    stop = 1;
-}
+    startbutton = buttonsArea.querySelector(".start");
 
 startbutton.onclick = () => {
     if (document.getElementById("myFile").textContent != "No file") {
-        stop = 0;
         exec();
     } else {
         alert("No BPMN file loaded!");
     }
 }
 
+//if user click on the button then the input also clicked
 button.onclick = () => {
-    input.click(); //if user click on the button then the input also clicked
+    input.click();
 }
 
+//getting user select file and [0] this means if user select multiple files then we'll select only the first one
 input.addEventListener("change", function () {
-    //getting user select file and [0] this means if user select multiple files then we'll select only the first one
     file = this.files[0];
     document.getElementById("myFile").textContent = file.name;
     dropArea.classList.add("active");
@@ -62,14 +63,64 @@ dropArea.addEventListener("drop", (event) => {
     //getting user select file and [0] this means if user select multiple files then we'll select only the first one
     file = event.dataTransfer.files[0];
     document.getElementById("myFile").textContent = file.name;
-    dragText.textContent = "Drag & Drop to Upload File";
 });
 
+/*
+####################
+### Ros settings ###
+####################
+*/
+
+// Connecting to ROS
+var ros = new ROSLIB.Ros();
+
+// If there is an error on the backend, an 'error' emit will be emitted.
+ros.on('error', function (error) {
+    console.log(error);
+});
+
+// Find out exactly when we made a connection.
+ros.on('connection', function () {
+    console.log('Connection made!');
+});
+
+ros.on('close', function () {
+    console.log('Connection closed.');
+});
+
+// Create a connection to the rosbridge WebSocket server.
+// (Change IP here) 
+//ros.connect('ws://ubuntucardif2.sytes.net:9090');
+ros.connect('ws://localhost:9090')
+
+//Topics
+var topic1var = new ROSLIB.Topic({
+    ros: ros,
+    name: '/project_topic_1',
+    messageType: 'std_msgs/String'
+});
+
+var topic2var = new ROSLIB.Topic({
+    ros: ros,
+    name: '/project_topic_2',
+    messageType: 'std_msgs/String'
+});
+
+topic1var.publish({ data: "Starting..." });
+topic2var.publish({ data: "Starting..." });
+
+/*
+##############
+### Engine ###
+##############
+*/
+
+//Validation of BPMN files
 function exec() {
     const extension = file.name.split('.').pop();
     let validExtensions = ["bpmn"]; //adding some valid extensions in array
 
-    if (validExtensions.includes(extension)) {
+    if (validExtensions.includes(extension)) { //if user selected file is an image file
         console.log("### [ " + JSON.stringify(file.name) + " ] ###");
         const filereader = new FileReader();
         filereader.onload = function (event) {
@@ -83,6 +134,7 @@ function exec() {
     }
 }
 
+//Execution of BPMN files
 function executeXmlFile(source) {
     'use strict';
 
@@ -93,10 +145,13 @@ function executeXmlFile(source) {
     var tstart = 0;
     var tfinish = 0;
 
+    //Variables
     const engine = Engine({
         name: 'BPMN engine',
+        //Insert external variables here (like ros topics)
         variables: {
-            input: 51,
+            topic1: topic1var,
+            topic2: topic2var
         },
         source
     });
@@ -104,7 +159,6 @@ function executeXmlFile(source) {
     //Freccie
     listener.on('flow.take', (flow) => {
         console.log(`flow.take <${flow.id}> was taken`);
-        if (stop == 1) engine.stop();
     });
 
     //Inizio attivita'
@@ -137,11 +191,11 @@ function executeXmlFile(source) {
     });
 
     engine.on('stop', (execution) => {
-        console.log("### Execution stopped in " + JSON.stringify(tfinish - tstart) + "ms ###");
+        console.log('stopped');
     });
 
     engine.on('error', (execution) => {
-        console.log("### Execution stopped for an error, " + JSON.stringify(tfinish - tstart) + "ms ###");
+        console.log('error');
     });
 
     engine.execute({
