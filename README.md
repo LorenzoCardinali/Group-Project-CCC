@@ -19,7 +19,7 @@ Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
     ./install.sh
     ```
 
-## **Start and use web page**
+## **Start services and use web page**
 1. Make sure to source a ROS 2 installation:
     ```
     source /opt/ros/foxy/setup.sh
@@ -31,6 +31,12 @@ Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
     _Note: both services have their own port (web bridge -> 9090, web page -> 3000)_
 
 3. Open your browser, and navigate to URL: http://localhost:3000/uploader.html
+
+## **Stop services**
+1. Execute the __stop.sh__ script to close the 2 services screens.
+    ```
+    ./stop.sh
+    ```
 
 ## **Run example**
 1. After starting the web page check for 2 new topics __/project_topic_1__ and __/project_topic_2__ by executing the command:
