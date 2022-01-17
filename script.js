@@ -66,12 +66,11 @@ dropArea.addEventListener("drop", (event) => {
 });
 
 /*
-####################
-### Ros settings ###
-####################
+######################
+### Ros connection ###
+######################
 */
 
-// Connecting to ROS
 var ros = new ROSLIB.Ros();
 
 // If there is an error on the backend, an 'error' emit will be emitted.
@@ -84,13 +83,12 @@ ros.on('connection', function () {
     console.log('Connection made!');
 });
 
+// Find out exactly when a connection is closed.
 ros.on('close', function () {
     console.log('Connection closed.');
 });
 
 // Create a connection to the rosbridge WebSocket server.
-// (Change IP here) 
-//ros.connect('ws://ubuntucardif2.sytes.net:9090');
 ros.connect('ws://localhost:9090')
 
 //Topics
