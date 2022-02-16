@@ -89,23 +89,7 @@ ros.on('close', function () {
 });
 
 // Create a connection to the rosbridge WebSocket server.
-ros.connect('ws://localhost:9090')
-
-//Topics
-var topic1var = new ROSLIB.Topic({
-    ros: ros,
-    name: '/project_topic_1',
-    messageType: 'std_msgs/String'
-});
-
-var topic2var = new ROSLIB.Topic({
-    ros: ros,
-    name: '/project_topic_2',
-    messageType: 'std_msgs/String'
-});
-
-topic1var.publish({ data: "Starting..." });
-topic2var.publish({ data: "Starting..." });
+ros.connect('ws://192.168.1.235:9090')
 
 /*
 ##############
@@ -146,10 +130,13 @@ function executeXmlFile(source) {
     //Variables
     const engine = Engine({
         name: 'BPMN engine',
-        //Insert external variables here (like ros topics)
+        //Insert external variables here
         variables: {
-            topic1: topic1var,
-            topic2: topic2var
+        },
+        //Insert external functions here
+        services: {
+            makeTopic,
+            publish
         },
         source
     });
@@ -201,4 +188,18 @@ function executeXmlFile(source) {
     }, (err) => {
         if (err) throw err;
     });
+
+    // Makes a new topic
+    function makeTopic(local, topicName) {
+        local.environment.output.topicName = new ROSLIB.Topic({
+            ros: ros,
+            name: '/' + topicName,
+            messageType: 'std_msgs/String'
+        });
+    }
+
+    // Publish data in a specific topic
+    function publish(local, topicName, message) {
+        local.environment.output.topicName.publish({ data: message });
+    }
 }
