@@ -11,8 +11,8 @@ Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
     ```
 2. Clone the dependencies:
     ```
-    git clone https://github.com/LorenzoCardinali/Group-Projectt-CCC
-    cd Group-Projectt-CCC && chmod +x *.sh
+    git clone https://github.com/LorenzoCardinali/Group-Project-CCC
+    cd Group-Project-CCC && chmod +x *.sh
     ```
 3. Install the dependencies:
     ```
@@ -63,7 +63,7 @@ Students
 
 Tutors
 - Lorenzo Rossi
-- Sara Pettinari
+- Sara Pettinari
 
 Relatore
 - Prof. Barbara Re
