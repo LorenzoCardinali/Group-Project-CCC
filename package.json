@@ -1,5 +1,5 @@
 {
-  "name": "bpmn-test",
+  "name": "bpmn-ccc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,12 +11,14 @@
   "dependencies": {
     "bent": "^7.3.12",
     "bpmn-engine": "^13.0.0",
+    "bpmn-js": "^8.9.1",
     "browserify": "^17.0.0",
     "camunda-bpmn-moddle": "^6.1.1",
-    "debug": "^4.1.1",
-    "express": "^4.16.2",
+    "debug": "^4.3.3",
+    "express": "^4.17.2",
     "fs": "0.0.1-security",
     "require": "^2.4.20",
+    "uglify-js": "^3.15.1",
     "uniq": "^1.0.1"
   }
 }

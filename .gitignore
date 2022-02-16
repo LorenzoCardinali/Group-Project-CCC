@@ -1,4 +1,5 @@
 # Logs
+bundle.js
 logs
 *.log
 npm-debug.log*
@@ -35,6 +36,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+ros2-web-bridge/
 
 # TypeScript v1 declaration files
 typings/
