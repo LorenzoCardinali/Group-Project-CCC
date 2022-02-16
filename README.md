@@ -9,12 +9,16 @@ Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
     ```
     sudo apt update && sudo apt install git screen npm nodejs
     ```
-2. Clone the dependencies:
+2. Fix the nodejs version installed:
+    ```
+    curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt-get install -y nodejs
+    ```
+3. Clone the dependencies:
     ```
     git clone https://github.com/LorenzoCardinali/Group-Project-CCC
     cd Group-Project-CCC && chmod +x *.sh
     ```
-3. Install the dependencies:
+4. Install the dependencies:
     ```
     ./install.sh
     ```
@@ -38,22 +42,21 @@ Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
     ./stop.sh
     ```
 
-## **Run example**
-1. After starting the web page check for 2 new topics __/project_topic_1__ and __/project_topic_2__ by executing the command:
+## **Run BPMN files**
+1. Upload the chosen BPMN file in the web page.
+
+2. Now press __start__ to execute it and you should be able to see the execution log inside the console.
+
+## **Ros topics**
+Here is a useful list of commands about __Ros Topics__.
+- Display topics list:
     ```
     ros2 topic list
     ```
-2. Start listening to one of those topics using:
+- Start listening to a specific topic:
     ```
-    ros2 topic echo /project_topic_1
+    ros2 topic echo /<topic_name>
     ```
-    or:
-    ```
-    ros2 topic echo /project_topic_2
-    ```
-3. Upload the BPMN file __topic_test.bpmn__ in the web page.
-
-4. Now press __start__ to execute it and you should be able to see the new data being sent.
 
 ## **Credits**
 Students
