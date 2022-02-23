@@ -197,7 +197,8 @@ function executeXmlFile(source) {
 
     // Makes a new topic
     function makeTopic(local, topicName) {
-        local.environment.output.topicName = new ROSLIB.Topic({
+        console.log(topicName);
+        local.environment.output[topicName] = new ROSLIB.Topic({
             ros: ros,
             name: '/' + topicName,
             messageType: 'std_msgs/String'
@@ -206,6 +207,6 @@ function executeXmlFile(source) {
 
     // Publish data in a specific topic
     function publish(local, topicName, message) {
-        local.environment.output.topicName.publish({ data: message });
+        local.environment.output[topicName].publish({ data: message });
     }
 }
