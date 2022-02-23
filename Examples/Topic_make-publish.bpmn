@@ -11,31 +11,29 @@
     <bpmn:scriptTask id="Define_Topic_Task" name="Define Topic Task" scriptFormat="JavaScript">
       <bpmn:incoming>Flow1</bpmn:incoming>
       <bpmn:outgoing>Flow2</bpmn:outgoing>
-      <bpmn:script>const self = this;
-const makeTopic= self.environment.services.makeTopic;
-makeTopic(self, 'Topic1');
-makeTopic(self, 'Topic2');
+      <bpmn:script>const makeTopic= this.environment.services.makeTopic;
+makeTopic(this, 'Topic1');
+makeTopic(this, 'Topic2');
 next();</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow2" name="Flow2" sourceRef="Define_Topic_Task" targetRef="Publish_Topic_Task" />
     <bpmn:scriptTask id="Publish_Topic_Task" name="Publish Topic Task" scriptFormat="JavaScript">
       <bpmn:incoming>Flow2</bpmn:incoming>
       <bpmn:outgoing>Flow3</bpmn:outgoing>
-      <bpmn:script>const self = this;
-const publish= self.environment.services.publish;
-publish(self, 'Topic1', "test topic 1");
-publish(self, 'Topic2', "test topic 2");
+      <bpmn:script>const publish= this.environment.services.publish;
+publish(this, 'Topic1', "test topic 1");
+publish(this, 'Topic2', "test topic 2");
 next();</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:sequenceFlow id="Flow3" name="Flow3" sourceRef="Publish_Topic_Task" targetRef="End" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process">
-      <bpmndi:BPMNEdge id="Flow_1o8pqz5_di" bpmnElement="Flow1">
-        <di:waypoint x="178" y="120" />
-        <di:waypoint x="250" y="120" />
+      <bpmndi:BPMNEdge id="Flow_06k2vdj_di" bpmnElement="Flow3">
+        <di:waypoint x="540" y="120" />
+        <di:waypoint x="632" y="120" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="199" y="102" width="30" height="14" />
+          <dc:Bounds x="571" y="102" width="30" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ur61wz_di" bpmnElement="Flow2">
@@ -45,18 +43,18 @@ next();</bpmn:script>
           <dc:Bounds x="380" y="102" width="30" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_06k2vdj_di" bpmnElement="Flow3">
-        <di:waypoint x="540" y="120" />
-        <di:waypoint x="632" y="120" />
+      <bpmndi:BPMNEdge id="Flow_1o8pqz5_di" bpmnElement="Flow1">
+        <di:waypoint x="178" y="120" />
+        <di:waypoint x="250" y="120" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="571" y="102" width="30" height="14" />
+          <dc:Bounds x="199" y="102" width="30" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_1fe8r4x_di" bpmnElement="Define_Topic_Task">
-        <dc:Bounds x="250" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0mvi8kv_di" bpmnElement="Publish_Topic_Task">
-        <dc:Bounds x="440" y="80" width="100" height="80" />
+      <bpmndi:BPMNShape id="Event_16loxwj_di" bpmnElement="Start">
+        <dc:Bounds x="142" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="148" y="145" width="25" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0yv8ev1_di" bpmnElement="End">
         <dc:Bounds x="632" y="102" width="36" height="36" />
@@ -64,11 +62,11 @@ next();</bpmn:script>
           <dc:Bounds x="641" y="145" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_16loxwj_di" bpmnElement="Start">
-        <dc:Bounds x="142" y="102" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="148" y="145" width="25" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Activity_1fe8r4x_di" bpmnElement="Define_Topic_Task">
+        <dc:Bounds x="250" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mvi8kv_di" bpmnElement="Publish_Topic_Task">
+        <dc:Bounds x="440" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

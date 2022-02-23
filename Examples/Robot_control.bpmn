@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1czf636" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="Process_1h80t3q" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_00u4c4c</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_00u4c4c" sourceRef="StartEvent_1" targetRef="Activity_0s4nb59" />
+    <bpmn:exclusiveGateway id="Gateway_1cue4ft">
+      <bpmn:incoming>Flow_0eq8mba</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eybio6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0m7gbzn</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1eybio6" name="DX" sourceRef="Gateway_1cue4ft" targetRef="Activity_1c7ahqx">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">next(null, this.environment.output.var0 &lt; 0.5)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0m7gbzn" name="SX" sourceRef="Gateway_1cue4ft" targetRef="Activity_0ce9vux">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="JavaScript">next(null, this.environment.output.var0 &gt;= 0.5)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_1hs0fd5">
+      <bpmn:incoming>Flow_0yuuc1h</bpmn:incoming>
+      <bpmn:incoming>Flow_0tigkhx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1famk7t</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_0ql0ghl" name="End">
+      <bpmn:incoming>Flow_1famk7t</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1famk7t" sourceRef="Gateway_1hs0fd5" targetRef="Event_0ql0ghl" />
+    <bpmn:scriptTask id="Activity_0s4nb59" name="Define Topic:&#10;linear_vel&#10;angular_vel" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_00u4c4c</bpmn:incoming>
+      <bpmn:outgoing>Flow_15dqr42</bpmn:outgoing>
+      <bpmn:script>const makeTopic= this.environment.services.makeTopic;
+makeTopic(this, 'angular_vel');
+makeTopic(this, 'linear_vel');
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_159rtvt" name="linear_vel = 1.0" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_15dqr42</bpmn:incoming>
+      <bpmn:outgoing>Flow_05qm69q</bpmn:outgoing>
+      <bpmn:script>const publish= this.environment.services.publish;
+publish(this, 'linear_vel', "1.0");
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_1vp8a5w" name="linear_vel = 0" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_00i5mfv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v3058k</bpmn:outgoing>
+      <bpmn:script>const publish= this.environment.services.publish;
+publish(this, 'linear_vel', "0");
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_15dqr42" sourceRef="Activity_0s4nb59" targetRef="Activity_159rtvt" />
+    <bpmn:sequenceFlow id="Flow_05qm69q" sourceRef="Activity_159rtvt" targetRef="Event_1ep85wt" />
+    <bpmn:intermediateCatchEvent id="Event_1ep85wt" name="10s Timer">
+      <bpmn:incoming>Flow_05qm69q</bpmn:incoming>
+      <bpmn:outgoing>Flow_00i5mfv</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0zcw576">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_00i5mfv" sourceRef="Event_1ep85wt" targetRef="Activity_1vp8a5w" />
+    <bpmn:scriptTask id="Activity_15xufyy" name="Define Variable:&#10;var0 = random number" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_0v3058k</bpmn:incoming>
+      <bpmn:outgoing>Flow_0eq8mba</bpmn:outgoing>
+      <bpmn:script>const addVariable= this.environment.services.addVariable;
+addVariable(this, 'var0', Math.random());
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0v3058k" sourceRef="Activity_1vp8a5w" targetRef="Activity_15xufyy" />
+    <bpmn:sequenceFlow id="Flow_0eq8mba" sourceRef="Activity_15xufyy" targetRef="Gateway_1cue4ft" />
+    <bpmn:scriptTask id="Activity_1c7ahqx" name="angular_vel = 1.0" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_1eybio6</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yuuc1h</bpmn:outgoing>
+      <bpmn:script>const publish= this.environment.services.publish;
+publish(this, 'angular_vel', "1.0");
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0yuuc1h" sourceRef="Activity_1c7ahqx" targetRef="Gateway_1hs0fd5" />
+    <bpmn:scriptTask id="Activity_0ce9vux" name="angular_vel = -1.0" scriptFormat="JavaScript">
+      <bpmn:incoming>Flow_0m7gbzn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0tigkhx</bpmn:outgoing>
+      <bpmn:script>const publish= this.environment.services.publish;
+publish(this, 'angular_vel', "-1.0");
+next();</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_0tigkhx" sourceRef="Activity_0ce9vux" targetRef="Gateway_1hs0fd5" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1h80t3q">
+      <bpmndi:BPMNEdge id="Flow_00u4c4c_di" bpmnElement="Flow_00u4c4c">
+        <di:waypoint x="188" y="200" />
+        <di:waypoint x="220" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15dqr42_di" bpmnElement="Flow_15dqr42">
+        <di:waypoint x="320" y="200" />
+        <di:waypoint x="360" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05qm69q_di" bpmnElement="Flow_05qm69q">
+        <di:waypoint x="460" y="200" />
+        <di:waypoint x="492" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00i5mfv_di" bpmnElement="Flow_00i5mfv">
+        <di:waypoint x="528" y="200" />
+        <di:waypoint x="560" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v3058k_di" bpmnElement="Flow_0v3058k">
+        <di:waypoint x="660" y="200" />
+        <di:waypoint x="700" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0eq8mba_di" bpmnElement="Flow_0eq8mba">
+        <di:waypoint x="800" y="200" />
+        <di:waypoint x="845" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eybio6_di" bpmnElement="Flow_1eybio6">
+        <di:waypoint x="870" y="175" />
+        <di:waypoint x="870" y="120" />
+        <di:waypoint x="950" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="877" y="143" width="16" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m7gbzn_di" bpmnElement="Flow_0m7gbzn">
+        <di:waypoint x="870" y="225" />
+        <di:waypoint x="870" y="280" />
+        <di:waypoint x="950" y="280" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="877" y="253" width="16" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1famk7t_di" bpmnElement="Flow_1famk7t">
+        <di:waypoint x="1145" y="200" />
+        <di:waypoint x="1192" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yuuc1h_di" bpmnElement="Flow_0yuuc1h">
+        <di:waypoint x="1050" y="120" />
+        <di:waypoint x="1120" y="120" />
+        <di:waypoint x="1120" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tigkhx_di" bpmnElement="Flow_0tigkhx">
+        <di:waypoint x="1050" y="280" />
+        <di:waypoint x="1120" y="280" />
+        <di:waypoint x="1120" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="225" width="25" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13iv3xh_di" bpmnElement="Activity_0s4nb59">
+        <dc:Bounds x="220" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10r0k0r_di" bpmnElement="Activity_159rtvt">
+        <dc:Bounds x="360" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vp8a5w_di" bpmnElement="Activity_1vp8a5w">
+        <dc:Bounds x="560" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ep85wt_di" bpmnElement="Event_1ep85wt">
+        <dc:Bounds x="492" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="486" y="225" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15xufyy_di" bpmnElement="Activity_15xufyy">
+        <dc:Bounds x="700" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cue4ft_di" bpmnElement="Gateway_1cue4ft" isMarkerVisible="true">
+        <dc:Bounds x="845" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1hs0fd5_di" bpmnElement="Gateway_1hs0fd5" isMarkerVisible="true">
+        <dc:Bounds x="1095" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ql0ghl_di" bpmnElement="Event_0ql0ghl">
+        <dc:Bounds x="1192" y="182" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1200" y="225" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ce9vux_di" bpmnElement="Activity_0ce9vux">
+        <dc:Bounds x="950" y="240" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1c7ahqx_di" bpmnElement="Activity_1c7ahqx">
+        <dc:Bounds x="950" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
