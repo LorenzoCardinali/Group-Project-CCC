@@ -135,6 +135,7 @@ function executeXmlFile(source) {
         },
         //Insert external functions here
         services: {
+            addVariable,
             makeTopic,
             publish
         },
@@ -188,6 +189,11 @@ function executeXmlFile(source) {
     }, (err) => {
         if (err) throw err;
     });
+
+    // Makes a new variable
+    function addVariable(local, varName, varValue) {
+        local.environment.output[varName] = varValue;
+    }
 
     // Makes a new topic
     function makeTopic(local, topicName) {
