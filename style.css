@@ -74,7 +74,7 @@ body{
 /* Cloud Icon */
 .drag-area .icon{
   padding-left: 37.5%;
-  padding-top: 5%;
+  margin-top: 7px;
   font-size: 45px;
   color: #fff;
   justify-self: center;
@@ -82,6 +82,7 @@ body{
 
 .drag-area header{
 padding-bottom: 4%;
+
 }
 /* ???? */
 .drag-area img{
@@ -102,7 +103,7 @@ padding-bottom: 4%;
 
 /* Header scritta */
 .drag-area header{
-  padding-top: 3%;
+  
   font-weight: 500;
   color: #fff;
 }
@@ -129,4 +130,19 @@ padding-bottom: 4%;
   color: #000000;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 25px;
+  
+}
+
+#scritta{
+  height: auto;
+  width: auto;
+  margin-left: 50px;
+  margin-right: 50px;
+  line-height: 25px;
+}
+
+#scritta.h1{
+  text-align-last: justify;
+  
 }
