@@ -83,6 +83,7 @@ body{
 .drag-area header{
 padding-bottom: 4%;
 }
+
 /* ???? */
 .drag-area img{
   height: 100%;
@@ -129,4 +130,14 @@ padding-bottom: 4%;
   color: #000000;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 25px;
+}
+
+.filename{
+  height: auto;
+  width: auto;
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  line-height: 25px;
 }
