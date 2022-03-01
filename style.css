@@ -74,7 +74,11 @@ body{
 /* Cloud Icon */
 .drag-area .icon{
   padding-left: 37.5%;
+<<<<<<< HEAD
   padding-top: 5%;
+=======
+  margin-top: 7px;
+>>>>>>> 753a9f9619ae670acbbcc19d4ae3e71bb7642e05
   font-size: 45px;
   color: #fff;
   justify-self: center;
@@ -82,8 +86,13 @@ body{
 
 .drag-area header{
 padding-bottom: 4%;
+<<<<<<< HEAD
 }
 
+=======
+
+}
+>>>>>>> 753a9f9619ae670acbbcc19d4ae3e71bb7642e05
 /* ???? */
 .drag-area img{
   height: 100%;
@@ -103,7 +112,11 @@ padding-bottom: 4%;
 
 /* Header scritta */
 .drag-area header{
+<<<<<<< HEAD
   padding-top: 3%;
+=======
+  
+>>>>>>> 753a9f9619ae670acbbcc19d4ae3e71bb7642e05
   font-weight: 500;
   color: #fff;
 }
@@ -131,6 +144,7 @@ padding-bottom: 4%;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 25px;
+<<<<<<< HEAD
 }
 
 .filename{
@@ -140,4 +154,20 @@ padding-bottom: 4%;
   margin-left: 50px;
   margin-right: 50px;
   line-height: 25px;
+=======
+  
+}
+
+#scritta{
+  height: auto;
+  width: auto;
+  margin-left: 50px;
+  margin-right: 50px;
+  line-height: 25px;
+}
+
+#scritta.h1{
+  text-align-last: justify;
+  
+>>>>>>> 753a9f9619ae670acbbcc19d4ae3e71bb7642e05
 }
