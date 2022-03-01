@@ -196,17 +196,24 @@ function executeXmlFile(source) {
     }
 
     // Makes a new topic
-    function makeTopic(local, topicName) {
-        console.log(topicName);
+    /*
+    String   
+        type: std_msgs/String
+        format: { data: '<String>' }
+    Movement 
+        type: geometry_msgs/msg/Twist
+        format: { linear: { x: 1.0, y: 0.0, z: 0.0 }, angular: { x: 0.0, y: 0.0, z: 1.0 } }
+    */
+    function makeTopic(local, topicName, topicType) {
         local.environment.output[topicName] = new ROSLIB.Topic({
             ros: ros,
             name: '/' + topicName,
-            messageType: 'std_msgs/String'
+            messageType: topicType
         });
     }
 
     // Publish data in a specific topic
     function publish(local, topicName, message) {
-        local.environment.output[topicName].publish({ data: message });
+        local.environment.output[topicName].publish(message);
     }
 }
