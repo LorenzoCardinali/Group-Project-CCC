@@ -1,6 +1,4 @@
 # Group-Project-CCC
-## **Description**:
-todo...
 
 ## **System requirements**
 Ubuntu Linux - Focal Fossa (20.04) 64-bit with ROS2 foxy installed.
